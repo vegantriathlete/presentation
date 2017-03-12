@@ -53,19 +53,16 @@ class DisplaySlideImage extends ControllerBase {
    *   The render array
    */
   public function displaySlideImage(Node $node, $delta) {
-    // @todo: Make sure to use a particular image preset that is defined by the
-    //        module.
-    //        For the moment I am using the "large" image preset, which is
-    //        defined by the Standard installation profile.
     $images_data = $this->presentationManagerService->getSlideImages($node);
     if (isset($images_data[$delta])) {
       $file = File::load($images_data[$delta]['target_id']);
       $render_array['image_data'] = array(
         '#theme' => 'image_style',
         '#uri' => $file->getFileUri(),
-        '#style_name' => 'large',
+        '#style_name' => 'presentation_large',
         '#alt' => $images_data[$delta]['alt'],
       );
+      // @todo: Consider adding previous and next links to get to other images.
     }
     else {
       $render_array['image_data'] = array(

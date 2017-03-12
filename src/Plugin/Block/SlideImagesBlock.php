@@ -79,12 +79,10 @@ class SlideImagesBlock extends BlockBase implements ContainerFactoryPluginInterf
     foreach ($images_data as $key => $image_data) {
 
       $file = File::load($image_data['target_id']);
-      // @todo: Define an image style with the custom module so that I know
-      //        I've got it available to me and use that image style here
       $link_text = [
         '#theme' => 'image_style',
         '#uri' => $file->getFileUri(),
-        '#style_name' => 'thumbnail',
+        '#style_name' => 'presentation_thumbnail',
         '#alt' => $image_data['alt'],
       ];
       $url = Url::fromRoute('presentation.display_slide_image', array('node' => $node->nid->value, 'delta' => $key));
@@ -95,7 +93,7 @@ class SlideImagesBlock extends BlockBase implements ContainerFactoryPluginInterf
           ),
           'data-dialog-type' => 'modal',
           'data-dialog-options' => Json::encode([
-            'width' => 700,
+            'width' => 1080,
           ]),
         ),
       );
